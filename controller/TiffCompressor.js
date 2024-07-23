@@ -5,7 +5,8 @@ module.exports={
     CompressTif : async(req,res)=>{
         try {
             const inputPath = req.file.path;
-
+            const {fileName}=req.body;
+            
               // Compress the image to a buffer using sharp
                 const compressedBuffer = await sharp(inputPath)
                 .tiff({ quality: 50 }) // Adjust the quality as needed
@@ -15,9 +16,9 @@ module.exports={
                 const imageId = Date.now().toString();
                  // Store the buffer in memory (for simplicity, using a global variable here)
                 global.imageBuffers = global.imageBuffers || {};
-                global.imageBuffers[imageId] = compressedBuffer;
+                global.imageBuffers[fileName] = compressedBuffer;
                 // Generate the download link
-                const downloadLink = `${req.protocol}://${req.get('host')}/api/tiff/download/${imageId}`;
+                const downloadLink = `${req.protocol}://${req.get('host')}/api/tiff/download/${fileName}`;
 
                 res.json({
                 message: 'Image Compressed Successfully',
@@ -45,7 +46,7 @@ module.exports={
               // Set headers for file download
               res.set({
                 'Content-Type': 'image/tif',
-                'Content-Disposition': `attachment; filename="compressed_${imageId}.tif"`
+                'Content-Disposition': `attachment; filename="${imageId}.tif"`
               });
           
               // Send the image buffer
