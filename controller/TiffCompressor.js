@@ -18,7 +18,7 @@ module.exports={
                 global.imageBuffers = global.imageBuffers || {};
                 global.imageBuffers[fileName] = compressedBuffer;
                 // Generate the download link
-                const downloadLink = `${req.protocol}://${req.get('host')}/api/tiff/download/${fileName}`;
+                const downloadLink = `https://${req.get('host')}/api/tiff/download/${fileName}`;
 
                 res.json({
                 message: 'Image Compressed Successfully',
