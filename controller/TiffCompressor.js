@@ -44,8 +44,8 @@ module.exports={
           
               // Set headers for file download
               res.set({
-                'Content-Type': 'image/tiff',
-                'Content-Disposition': `attachment; filename="compressed_${imageId}.tiff"`
+                'Content-Type': 'image/tif',
+                'Content-Disposition': `attachment; filename="compressed_${imageId}.tif"`
               });
           
               // Send the image buffer
