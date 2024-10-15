@@ -4,6 +4,7 @@ const sharp = require('sharp');
 module.exports={
     CompressTif : async(req,res)=>{
         try {
+            console.log(req,"bbb");
             const inputPath = req.file.path;
             const {fileName}=req.body;
             
@@ -19,7 +20,7 @@ module.exports={
                 global.imageBuffers[fileName] = compressedBuffer;
                 // Generate the download link
                 const downloadLink = `https://${req.get('host')}/api/tiff/download/${fileName}`;
-
+            console.log(downloadLink,"dwllink");     
                 res.json({
                 message: 'Image Compressed Successfully',
                 Link: downloadLink
